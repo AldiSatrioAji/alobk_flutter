@@ -1,7 +1,9 @@
+import 'package:alobk_app/injection.dart';
 import 'package:alobk_app/main_screen.dart';
 import 'package:alobk_app/src/bloc/bloc.dart';
 import 'package:alobk_app/src/data/repository/login_repository.dart';
 import 'package:alobk_app/src/network/api_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -26,9 +28,9 @@ class SimpleBlocDelegate extends BlocDelegate {
   }
 }
 
-void main() {
-  // await init();
-  // BlocSupervisor.delegate = SimpleBlocDelegate();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await init();
   runApp(App());
 }
 
@@ -47,7 +49,7 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BlocProvider<AuthenticationBloc>(
-        create: (context) => AuthenticationBloc(loginRepository: LoginRepositoryImpl(apiProvider: ApiProvider(httpClient: http.Client())))..add(AppStarted()),
+        create: (context) => sl<AuthenticationBloc>()..add(AppStarted()),
         child: MainScreen(),
       )
     );

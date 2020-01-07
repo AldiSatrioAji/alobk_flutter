@@ -31,7 +31,6 @@ class LoginRepositoryImpl implements LoginRepository {
   Future<bool> hasSession() async {
     final sharedPref = await SharedPreferences.getInstance();
     final hasSession = sharedPref.getBool("HAS_LOGGED");
-    print("Has session  ? $hasSession");
     return hasSession ?? false;
   }
 
