@@ -4,8 +4,15 @@ import 'package:alobk_app/main_screen.dart';
 import 'package:alobk_app/src/bloc/bloc.dart';
 import 'package:alobk_app/src/data/repository/login_repository.dart';
 import 'package:alobk_app/src/network/api_provider.dart';
+import 'package:alobk_app/src/presentation/bacaan_screen.dart';
+import 'package:alobk_app/src/presentation/daring_screen.dart';
+import 'package:alobk_app/src/presentation/konselor_screen.dart';
+import 'package:alobk_app/src/presentation/konselor_screen/detail_konselor_screen.dart';
 import 'package:alobk_app/src/presentation/login_screen.dart';
+import 'package:alobk_app/src/presentation/pengaturan_screen.dart';
 import 'package:alobk_app/src/presentation/profile_screen.dart';
+import 'package:alobk_app/src/presentation/tatap_muka_screen.dart';
+import 'package:alobk_app/src/presentation/tulis_diari_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,7 +64,14 @@ class App extends StatelessWidget {
       ),
       routes: <String, WidgetBuilder> {
         Routes.login: (BuildContext context) => LoginScreen(),
-        Routes.profile_student: (BuildContext context) => SilverAppBarWithTabBarScreen()
+        Routes.konselor: (BuildContext context) => KonselorScreen(),
+        Routes.detailKonselor: (BuildContext context) => DetailKonselorScreen(),
+        Routes.tatapMuka: (BuildContext context) => TatapMukaScreen(),
+        Routes.daring: (BuildContext context) => DaringScreen(),
+        Routes.tulisDiari: (BuildContext context) => TulisDiariScreen(),
+        Routes.bacaan: (BuildContext context) => BacaanScreen(),
+        Routes.pengaturan: (BuildContext context) => PengaturanScreen(),
+        Routes.profileStudent: (BuildContext context) => SilverAppBarWithTabBarScreen(),
       },
     );
   }

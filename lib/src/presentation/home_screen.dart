@@ -21,20 +21,38 @@ class HomeScreen extends StatelessWidget {
         child: _buildBody(context));
   }
 
+  Widget featureColumn(String title, String route, BuildContext context) {
+    return InkWell(
+      onTap: () => navigateTo(context, route),
+      child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          CircleAvatar(
+            backgroundImage:
+                NetworkImage("https://www.w3schools.com/w3images/team2.jpg"),
+          ),
+          MarginVertical(margin: Dimens.marginSmall),
+          Text("$title")
+        ],
+      )),
+    );
+  }
+
   Widget _buildBody(BuildContext context) {
     void doLogout() {
       BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
     }
 
     return Scaffold(
-        body: ListView(
-          children: <Widget>[
-            _buildGreetingBlock(context),
-            _buildFeatureList(),
-            _buildImproveSecurity()
-          ],
-        ),
-      );
+      body: ListView(
+        children: <Widget>[
+          _buildGreetingBlock(context),
+          _buildFeatureList(context),
+          _buildImproveSecurity()
+        ],
+      ),
+    );
   }
 
   Widget _buildGreetingBlock(BuildContext context) {
@@ -75,11 +93,9 @@ class HomeScreen extends StatelessWidget {
                 margin: Dimens.marginSmall,
               ),
               GestureDetector(
-                onTap: () => {
-                  navigateTo(context, Routes.profile_student)
-                },
+                onTap: () => {navigateTo(context, Routes.profileStudent)},
                 child: Hero(
-                  tag: HeroTag.profileStudentTag,
+                  tag: "asd",
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(
                         "https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png"),
@@ -126,7 +142,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatureList() {
+  Widget _buildFeatureList(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
           left: Dimens.homePaddingHorizontal,
@@ -136,19 +152,19 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text("Fitur tersedia", style: subtitle),
-          MarginVertical(margin: Dimens.marginNormal),
+          MarginVertical(margin: Dimens.marginSmall),
           GridView.count(
             padding: EdgeInsets.all(0.0),
             physics: NeverScrollableScrollPhysics(),
             crossAxisCount: 3,
             shrinkWrap: true,
             children: <Widget>[
-              featureColumn("Konselor"),
-              featureColumn("Tatap Muka"),
-              featureColumn("Daring"),
-              featureColumn("Tulis Diari"),
-              featureColumn("Bacaan"),
-              featureColumn("Pengaturan"),
+              featureColumn("Konselor", Routes.konselor, context),
+              featureColumn("Tatap Muka", Routes.tatapMuka, context),
+              featureColumn("Daring", Routes.daring, context),
+              featureColumn("Tulis Diari", Routes.tulisDiari, context),
+              featureColumn("Bacaan", Routes.bacaan, context),
+              featureColumn("Pengaturan", Routes.pengaturan, context),
             ],
           )
         ],
@@ -180,20 +196,6 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget featureColumn(String title) {
-    return Container(
-        child: Column(
-      children: <Widget>[
-        CircleAvatar(
-          backgroundImage:
-              NetworkImage("https://www.w3schools.com/w3images/team2.jpg"),
-        ),
-        MarginVertical(margin: Dimens.marginSmall),
-        Text("$title")
-      ],
-    ));
   }
 
   Widget noAnnouncement() {

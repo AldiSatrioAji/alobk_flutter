@@ -6,4 +6,6 @@ class Dimens {
   static const double homePaddingVertical = 24.0;
   static const double homePaddingHorizontal = 16.0;
 
+  static const double circularAppBarHeight = 120.0;
+
 }

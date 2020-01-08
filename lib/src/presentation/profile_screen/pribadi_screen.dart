@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class PribadiScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: <Widget>[
-        // _buildInfo(),
+        _buildInfo("Nama", "Aldi Satrio Aji"),
         // _buildInfo(),
         // _buildInfo(),
         // _buildInfo(),

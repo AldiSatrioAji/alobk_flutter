@@ -1,4 +1,5 @@
 import 'package:alobk_app/core/hero_tag.dart';
+import 'package:alobk_app/core/strings.dart';
 import 'package:alobk_app/core/widget.dart';
 import 'package:alobk_app/src/presentation/profile_screen/alamat_screen.dart';
 import 'package:alobk_app/src/presentation/profile_screen/pribadi_screen.dart';
@@ -29,60 +30,108 @@ class _SilverAppBarWithTabBarState extends State<SilverAppBarWithTabBarScreen>
 
   bool isExpanded() => top == expandedLimit;
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: DefaultTabController(
+  //       length: totalTab,
+  //       child: NestedScrollView(
+  //         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+  //           return <Widget>[
+  //             SliverAppBar(
+  //               expandedHeight: 200.0,
+  //               floating: false,
+  //               pinned: true,
+  //               flexibleSpace: LayoutBuilder(
+  //                 builder: (context, constraints) {
+  //                   top = constraints.biggest.height;
+  //                   return FlexibleSpaceBar(
+  //                     title: isExpanded() ? Text("Collapsing Toolbar", style: appBarTitleTheme) : null,
+  //                     background: Hero(
+  //                       tag: HeroTag.profileStudentTag,
+  //                       child: Image.network(
+  //                         "https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png",
+  //                         fit: BoxFit.cover,
+  //                       ),
+  //                     ),
+  //                   );
+  //                 },
+  //               ),
+  //             ),
+  //             SliverPersistentHeader(
+  //               delegate: _SliverAppBarDelegate(
+  //                 TabBar(
+  //                   controller: controller,
+  //                   labelColor: Colors.black87,
+  //                   unselectedLabelColor: Colors.grey,
+  //                   tabs: [
+  //                     Tab(icon: Icon(Icons.person), text: "Pribadi"),
+  //                     Tab(icon: Icon(Icons.school), text: "Sekolah"),
+  //                     Tab(icon: Icon(Icons.location_on), text: "Alamat"),
+  //                   ],
+  //                 ),
+  //               ),
+  //               pinned: true,
+  //             ),
+  //           ];
+  //         },
+  //         body: Container(child: Text("Test"))
+  //       ),
+  //     ),
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: DefaultTabController(
-        length: totalTab,
+        length: 2,
         child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                expandedHeight: 200.0,
-                floating: false,
-                pinned: true,
-                flexibleSpace: LayoutBuilder(
-                  builder: (context, constraints) {
-                    top = constraints.biggest.height;
-                    return FlexibleSpaceBar(
-                      title: isExpanded() ? Text("Collapsing Toolbar", style: appBarTitleTheme) : null,
-                      background: Hero(
-                        tag: HeroTag.profileStudentTag,
-                        child: Image.network(
-                          "https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png",
-                          fit: BoxFit.cover,
-                        ),
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  expandedHeight: 200.0,
+                  floating: false,
+                  pinned: true,
+                  flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                    title: Text("Collapsing Toolbar",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        )),
+                    background: Hero(
+                      tag: HeroTag.profileStudentTag,
+                      child: Image.network(
+                        dummyImageUrl,
+                        fit: BoxFit.cover,
                       ),
-                    );
-                  },
-                ),
-              ),
-              SliverPersistentHeader(
-                delegate: _SliverAppBarDelegate(
-                  TabBar(
-                    controller: controller,
-                    labelColor: Colors.black87,
-                    unselectedLabelColor: Colors.grey,
-                    tabs: [
-                      Tab(icon: Icon(Icons.person), text: "Pribadi"),
-                      Tab(icon: Icon(Icons.school), text: "Sekolah"),
-                      Tab(icon: Icon(Icons.location_on), text: "Alamat"),
-                    ],
+                    ),
                   ),
                 ),
-                pinned: true,
-              ),
-            ];
-          },
-          body: TabBarView(
-            controller: controller,
-            children: <Widget>[
-              PribadiScreen(),
-              SekolahScreen(),
-              AlamatScreen()
-            ],
-          )
-        ),
+                SliverPersistentHeader(
+                  delegate: _SliverAppBarDelegate(
+                    TabBar(
+                      labelColor: Colors.black87,
+                      unselectedLabelColor: Colors.grey,
+                      tabs: [
+                        Tab(icon: Icon(Icons.info), text: "Tab 1"),
+                        Tab(icon: Icon(Icons.lightbulb_outline), text: "Tab 2"),
+                      ],
+                    ),
+                  ),
+                  pinned: true,
+                ),
+              ];
+            },
+            body: TabBarView(
+              controller: controller,
+              children: <Widget>[
+                PribadiScreen(),
+                SekolahScreen(),
+                AlamatScreen()
+              ],
+            )),
       ),
     );
   }

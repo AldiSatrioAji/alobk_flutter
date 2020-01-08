@@ -8,3 +8,7 @@ import 'package:flutter/cupertino.dart';
 void navigateTo(BuildContext buildContext, String routes) {
   Navigator.of(buildContext).pushNamed(routes);
 }
+
+void navigateToWithData(BuildContext buildContext, String routes, String data) {
+  Navigator.of(buildContext).pushNamed<String>(routeName: "asd", data: "Test");
+}
