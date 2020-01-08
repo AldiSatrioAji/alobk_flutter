@@ -3,6 +3,7 @@ import 'package:alobk_app/src/bloc/bloc.dart';
 import 'package:alobk_app/src/presentation/home_screen.dart';
 import 'package:alobk_app/src/presentation/login_screen.dart';
 import 'package:alobk_app/src/presentation/splash_screen.dart';
+import 'package:alobk_app/src/presentation/student_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
           //    return HomeScreen();
           // }
           if(state is AuthenticationAuthState) {
-            return HomeScreen();
+            return StudentScreen();
           }
           if(state is AuthenticationUnauthState) {
             return LoginScreen();

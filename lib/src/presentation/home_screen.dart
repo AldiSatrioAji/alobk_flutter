@@ -1,5 +1,8 @@
 import 'package:alobk_app/core/dimens.dart';
+import 'package:alobk_app/core/hero_tag.dart';
 import 'package:alobk_app/core/margin.dart';
+import 'package:alobk_app/core/navigations.dart';
+import 'package:alobk_app/core/routes.dart';
 import 'package:alobk_app/core/widget.dart';
 import 'package:alobk_app/injection.dart';
 import 'package:alobk_app/src/bloc/authentication_bloc.dart';
@@ -14,9 +17,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthenticationBloc>(
-      create: (context) => sl<AuthenticationBloc>(),
-      child: _buildBody(context),
-    );
+        create: (context) => sl<AuthenticationBloc>(),
+        child: _buildBody(context));
   }
 
   Widget _buildBody(BuildContext context) {
@@ -25,13 +27,14 @@ class HomeScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          _buildGreetingBlock(context),
-          _buildFeatureList()
-        ],
-      ),
-    );
+        body: ListView(
+          children: <Widget>[
+            _buildGreetingBlock(context),
+            _buildFeatureList(),
+            _buildImproveSecurity()
+          ],
+        ),
+      );
   }
 
   Widget _buildGreetingBlock(BuildContext context) {
@@ -43,10 +46,12 @@ class HomeScreen extends StatelessWidget {
               vertical: Dimens.homePaddingVertical),
           constraints: BoxConstraints.expand(height: 150),
           decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30.0),
-                  bottomRight: Radius.circular(30.0))),
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30.0),
+              bottomRight: Radius.circular(30.0),
+            ),
+          ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(
@@ -69,9 +74,17 @@ class HomeScreen extends StatelessWidget {
               MarginVertical(
                 margin: Dimens.marginSmall,
               ),
-              CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png"),
+              GestureDetector(
+                onTap: () => {
+                  navigateTo(context, Routes.profile_student)
+                },
+                child: Hero(
+                  tag: HeroTag.profileStudentTag,
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        "https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png"),
+                  ),
+                ),
               )
             ],
           ),
@@ -91,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "Status Konseling",
+                        "Konseling Aktif",
                         style: TextStyle(fontSize: 16.0),
                       ),
                       Text("Lihat semua",
@@ -115,28 +128,72 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildFeatureList() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: Dimens.homePaddingHorizontal, vertical: Dimens.homePaddingVertical),
+      padding: EdgeInsets.only(
+          left: Dimens.homePaddingHorizontal,
+          right: Dimens.homePaddingHorizontal,
+          top: Dimens.homePaddingVertical),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text("Fitur tersedia", style: subtitle),
-          Container(
-            child: GridView.builder(
-              itemCount: 10,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
-              itemBuilder: (context, index) {
-                return Container(
-                padding: const EdgeInsets.all(4),
-                child: Center(
-                  child: Text("Konselor"),
-                )
-              );
-              } 
-            )
+          MarginVertical(margin: Dimens.marginNormal),
+          GridView.count(
+            padding: EdgeInsets.all(0.0),
+            physics: NeverScrollableScrollPhysics(),
+            crossAxisCount: 3,
+            shrinkWrap: true,
+            children: <Widget>[
+              featureColumn("Konselor"),
+              featureColumn("Tatap Muka"),
+              featureColumn("Daring"),
+              featureColumn("Tulis Diari"),
+              featureColumn("Bacaan"),
+              featureColumn("Pengaturan"),
+            ],
           )
         ],
       ),
     );
+  }
+
+  Widget _buildImproveSecurity() {
+    return InkWell(
+      onTap: () => {},
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: Dimens.homePaddingVertical,
+          horizontal: Dimens.homePaddingHorizontal,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text("Tingkatkan keamanan", style: subtitle),
+            // MarginVertical(margin: Dimens.marginNormal),
+            ListTile(
+                leading: Icon(Icons.security),
+                title: Text("Ubah kata sandi sekarang"),
+                isThreeLine: true,
+                subtitle:
+                    Text("Kata sandimu saat ini menggunakan sandi default"),
+                trailing: Icon(Icons.arrow_right)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget featureColumn(String title) {
+    return Container(
+        child: Column(
+      children: <Widget>[
+        CircleAvatar(
+          backgroundImage:
+              NetworkImage("https://www.w3schools.com/w3images/team2.jpg"),
+        ),
+        MarginVertical(margin: Dimens.marginSmall),
+        Text("$title")
+      ],
+    ));
   }
 
   Widget noAnnouncement() {

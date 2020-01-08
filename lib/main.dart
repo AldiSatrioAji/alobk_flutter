@@ -1,8 +1,11 @@
+import 'package:alobk_app/core/routes.dart';
 import 'package:alobk_app/injection.dart';
 import 'package:alobk_app/main_screen.dart';
 import 'package:alobk_app/src/bloc/bloc.dart';
 import 'package:alobk_app/src/data/repository/login_repository.dart';
 import 'package:alobk_app/src/network/api_provider.dart';
+import 'package:alobk_app/src/presentation/login_screen.dart';
+import 'package:alobk_app/src/presentation/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,7 +54,11 @@ class App extends StatelessWidget {
       home: BlocProvider<AuthenticationBloc>(
         create: (context) => sl<AuthenticationBloc>()..add(AppStarted()),
         child: MainScreen(),
-      )
+      ),
+      routes: <String, WidgetBuilder> {
+        Routes.login: (BuildContext context) => LoginScreen(),
+        Routes.profile_student: (BuildContext context) => SilverAppBarWithTabBarScreen()
+      },
     );
   }
 }

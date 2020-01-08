@@ -5,3 +5,7 @@ const TextStyle subtitle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 16.0
 );
+
+const TextStyle appBarTitleTheme = TextStyle(
+  color: Colors.black
+);
