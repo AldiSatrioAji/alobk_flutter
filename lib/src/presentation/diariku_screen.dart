@@ -1,4 +1,5 @@
 import 'package:alobk_app/core/dimens.dart';
+import 'package:alobk_app/core/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -34,10 +35,13 @@ class _DiarikuScreenState extends State<DiarikuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Test"),),
-      body: Container(
-        child: Text("Test123")
+      appBar: AppBar(
+        title: Text(
+          "Diariku",
+          style: appBarTitleTheme,
+        ),
       ),
+      body: Container(child: Text("Test123")),
     );
   }
 

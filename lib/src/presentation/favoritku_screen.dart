@@ -1,3 +1,4 @@
+import 'package:alobk_app/core/widget.dart';
 import 'package:flutter/material.dart';
 
 class FavoritkuScreen extends StatefulWidget {
@@ -8,8 +9,14 @@ class FavoritkuScreen extends StatefulWidget {
 class _FavoritkuScreenState extends State<FavoritkuScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Favorit",
+          style: appBarTitleTheme,
+        ),
+      ),
+      body: Container(child: Text("Test123")),
     );
   }
 }

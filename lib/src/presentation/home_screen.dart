@@ -10,9 +10,45 @@ import 'package:alobk_app/src/bloc/authentication_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+class CircleFeature {
+  String title;
+  IconData fontAwesomeIcons;
+  String rute;
+
+  CircleFeature({this.title, this.fontAwesomeIcons, this.rute});
+}
 
 class HomeScreen extends StatelessWidget {
   final isEmpty = true;
+
+  List<CircleFeature> listFeature = [
+    CircleFeature(
+        title: "Konselor",
+        fontAwesomeIcons: FontAwesomeIcons.personBooth,
+        rute: Routes.konselor),
+    CircleFeature(
+        title: "Tatap Muka",
+        fontAwesomeIcons: FontAwesomeIcons.database,
+        rute: Routes.tatapMuka),
+    CircleFeature(
+        title: "Daring",
+        fontAwesomeIcons: FontAwesomeIcons.personBooth,
+        rute: Routes.daring),
+    CircleFeature(
+        title: "Tulis Diari",
+        fontAwesomeIcons: FontAwesomeIcons.personBooth,
+        rute: Routes.tulisDiari),
+    CircleFeature(
+        title: "Bacaan",
+        fontAwesomeIcons: FontAwesomeIcons.personBooth,
+        rute: Routes.bacaan),
+    CircleFeature(
+        title: "Pengaturan",
+        fontAwesomeIcons: FontAwesomeIcons.personBooth,
+        rute: Routes.pengaturan),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +57,33 @@ class HomeScreen extends StatelessWidget {
         child: _buildBody(context));
   }
 
-  Widget featureColumn(String title, String route, BuildContext context) {
+  Widget featureColumn(
+      String title, String routes, IconData icon, BuildContext context) {
     return InkWell(
-      onTap: () => navigateTo(context, route),
+      onTap: () => navigateTo(context, routes),
       child: Container(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          CircleAvatar(
-            backgroundImage:
-                NetworkImage("https://www.w3schools.com/w3images/team2.jpg"),
-          ),
+          // CircleAvatar(
+          //   backgroundImage:
+          //       NetworkImage("https://www.w3schools.com/w3images/team2.jpg"),
+          // ),
+          _buildIcon(icon),
           MarginVertical(margin: Dimens.marginSmall),
-          Text("$title")
+          Text(title)
         ],
       )),
+    );
+  }
+
+  Widget _buildIcon(IconData icon) {
+    return Container(
+      height: 60.0,
+      width: 60.0,
+      decoration: BoxDecoration(
+          color: Colors.orange, borderRadius: BorderRadius.circular(30.0)),
+      child: Icon(icon, size: 25.0, color: Colors.white),
     );
   }
 
@@ -95,7 +143,7 @@ class HomeScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () => {navigateTo(context, Routes.profileStudent)},
                 child: Hero(
-                  tag: "asd",
+                  tag: HeroTag.profileStudentTag,
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(
                         "https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png"),
@@ -158,13 +206,20 @@ class HomeScreen extends StatelessWidget {
             physics: NeverScrollableScrollPhysics(),
             crossAxisCount: 3,
             shrinkWrap: true,
+            // children: listFeature.asMap().entries.map(())
             children: <Widget>[
-              featureColumn("Konselor", Routes.konselor, context),
-              featureColumn("Tatap Muka", Routes.tatapMuka, context),
-              featureColumn("Daring", Routes.daring, context),
-              featureColumn("Tulis Diari", Routes.tulisDiari, context),
-              featureColumn("Bacaan", Routes.bacaan, context),
-              featureColumn("Pengaturan", Routes.pengaturan, context),
+              featureColumn("Konselor", Routes.konselor,
+                  FontAwesomeIcons.chalkboardTeacher, context),
+              featureColumn("Tatap Muka", Routes.tatapMuka,
+                  FontAwesomeIcons.calendar, context),
+              featureColumn("Daring", Routes.daring,
+                  FontAwesomeIcons.rocketchat, context),
+              featureColumn("Tulis Diari", Routes.tulisDiari,
+                  FontAwesomeIcons.pencilAlt, context),
+              featureColumn("Bacaan", Routes.bacaan,
+                  FontAwesomeIcons.bookReader, context),
+              featureColumn("Pengaturan", Routes.pengaturan,
+                  FontAwesomeIcons.cog, context),
             ],
           )
         ],

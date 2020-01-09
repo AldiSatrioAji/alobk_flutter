@@ -1,3 +1,4 @@
+import 'package:alobk_app/core/widget.dart';
 import 'package:flutter/material.dart';
 
 class PengaturanScreen extends StatefulWidget {
@@ -10,7 +11,10 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Profil Pengaturan"),
+          title: Text(
+            "Pengaturan",
+            style: appBarTitleTheme,
+          ),
         ),
         body: ListView(
           children: <Widget>[],

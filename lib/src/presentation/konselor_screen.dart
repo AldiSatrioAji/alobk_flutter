@@ -29,7 +29,7 @@ class _KonselorScreenState extends State<KonselorScreen> {
 
   Widget _buildProfile(BuildContext context, int index) {
     return GestureDetector(
-      onTap: () => navigateTo(context, Routes.profileStudent),
+      onTap: () => navigateTo(context, Routes.detailKonselor),
       child: ListTile(
         leading: Hero(tag: "HeroTag.profileStudentTag$index", child: CircleAvatar(backgroundImage: NetworkImage(dummyImageUrl))),
         title: Text("Dr. Ati Supriati"),

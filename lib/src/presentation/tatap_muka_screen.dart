@@ -1,3 +1,4 @@
+import 'package:alobk_app/core/widget.dart';
 import 'package:flutter/material.dart';
 
 class TatapMukaScreen extends StatefulWidget {
@@ -10,7 +11,10 @@ class _TatapMukaScreenState extends State<TatapMukaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Profil TatapMuka"),
+          title: Text(
+            "Tatap Muka",
+            style: appBarTitleTheme,
+          ),
         ),
         body: ListView(
           children: <Widget>[],
