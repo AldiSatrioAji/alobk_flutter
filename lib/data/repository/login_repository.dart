@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:alobk_app/src/data/model/login_request.dart';
-import 'package:alobk_app/src/domain/repository/login_repository.dart';
-import 'package:alobk_app/src/network/api_provider.dart';
+import 'package:alobk_app/domain/repository/login_repository.dart';
+import 'package:alobk_app/network/api_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class AlamatScreen extends StatelessWidget {
+class TeacherScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("Alamat")
+      child: Text("Teacher Screen")
     );
   }
 }

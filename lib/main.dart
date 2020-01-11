@@ -1,22 +1,22 @@
 import 'package:alobk_app/core/routes.dart';
 import 'package:alobk_app/injection.dart';
 import 'package:alobk_app/main_screen.dart';
-import 'package:alobk_app/src/bloc/bloc.dart';
-import 'package:alobk_app/src/data/repository/login_repository.dart';
-import 'package:alobk_app/src/network/api_provider.dart';
-import 'package:alobk_app/src/presentation/bacaan_screen.dart';
-import 'package:alobk_app/src/presentation/daring_screen.dart';
-import 'package:alobk_app/src/presentation/konselor_screen.dart';
-import 'package:alobk_app/src/presentation/konselor_screen/detail_konselor_screen.dart';
-import 'package:alobk_app/src/presentation/login_screen.dart';
-import 'package:alobk_app/src/presentation/pengaturan_screen.dart';
-import 'package:alobk_app/src/presentation/profile_screen.dart';
-import 'package:alobk_app/src/presentation/tatap_muka_screen.dart';
-import 'package:alobk_app/src/presentation/tulis_diari_screen.dart';
+import 'package:alobk_app/student/src/presentation/bacaan_screen.dart';
+import 'package:alobk_app/student/src/presentation/daring_screen.dart';
+import 'package:alobk_app/student/src/presentation/konselor_screen.dart';
+import 'package:alobk_app/student/src/presentation/konselor_screen/detail_konselor_screen.dart';
+import 'package:alobk_app/student/src/presentation/login_screen.dart';
+import 'package:alobk_app/student/src/presentation/pengaturan_screen.dart';
+import 'package:alobk_app/student/src/presentation/profile_screen.dart';
+import 'package:alobk_app/student/src/presentation/tatap_muka_screen.dart';
+import 'package:alobk_app/student/src/presentation/tulis_diari_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+
+import 'bloc/authentication_bloc.dart';
+import 'bloc/authentication_event.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -71,7 +71,7 @@ class App extends StatelessWidget {
         Routes.tulisDiari: (BuildContext context) => TulisDiariScreen(),
         Routes.bacaan: (BuildContext context) => BacaanScreen(),
         Routes.pengaturan: (BuildContext context) => PengaturanScreen(),
-        Routes.profileStudent: (BuildContext context) => SilverAppBarWithTabBarScreen(),
+        Routes.profileStudent: (BuildContext context) => ProfileScreen(),
       },
     );
   }

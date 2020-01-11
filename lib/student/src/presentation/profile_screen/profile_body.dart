@@ -1,71 +1,41 @@
+import 'package:alobk_app/bloc/bloc.dart';
 import 'package:alobk_app/core/dimens.dart';
 import 'package:alobk_app/core/hero_tag.dart';
 import 'package:alobk_app/core/margin.dart';
-import 'package:alobk_app/core/strings.dart';
 import 'package:alobk_app/core/widget.dart';
-import 'package:alobk_app/injection.dart';
-import 'package:alobk_app/src/bloc/bloc.dart';
-import 'package:alobk_app/src/presentation/profile_screen/alamat_screen.dart';
-import 'package:alobk_app/src/presentation/profile_screen/pribadi_screen.dart';
-import 'package:alobk_app/src/presentation/profile_screen/sekolah_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SilverAppBarWithTabBarScreen extends StatefulWidget {
+class ProfileBody extends StatefulWidget {
   @override
-  _SilverAppBarWithTabBarState createState() => _SilverAppBarWithTabBarState();
+  _ProfileBodyState createState() => _ProfileBodyState();
 }
 
-class _SilverAppBarWithTabBarState extends State<SilverAppBarWithTabBarScreen>
-    with SingleTickerProviderStateMixin {
-  final int totalTab = 3;
-  TabController controller;
-
+class _ProfileBodyState extends State<ProfileBody> {
   @override
-  void initState() {
-    super.initState();
-    controller = TabController(
-      length: totalTab,
-      vsync: this,
-    );
-  }
-
-  static const double expandedLimit = 80.0;
-  double top = 0.0;
-
-  bool isExpanded() => top == expandedLimit;
-
-  Widget _createProfile(BuildContext context) {
-    return Container(
-      color: Theme.of(context).primaryColor,
-      child: ListView(
-        children: <Widget>[_buildHeader(context), _buildPribadi(context)],
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Profil",
+          style: appBarTitleTheme,
+        ),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () => {
+              BlocProvider.of<LogoutBloc>(context).add(LogoutButtonPressed()),
+              print("Logouting")
+            },
+            icon: Icon(Icons.exit_to_app),
+            color: Colors.red,
+          )
+        ],
       ),
-    );
-  }
-
-  Widget _buildIcons() {
-    return Row(
-      children: <Widget>[
-        _buildIcon(),
-        _buildIcon(),
-        _buildIcon(),
-      ],
-    );
-  }
-
-  Widget _buildIcon() {
-    return Container(
-      height: 60.0,
-      width: 60.0,
-      decoration: BoxDecoration(
-          color: Theme.of(context).accentColor,
-          borderRadius: BorderRadius.circular(30.0)),
-      child: Icon(
-        Icons.ac_unit,
-        size: 25.0,
+      body: Container(
         color: Theme.of(context).primaryColor,
+        child: ListView(
+          children: <Widget>[_buildHeader(context), _buildPribadi(context)],
+        ),
       ),
     );
   }
@@ -140,7 +110,10 @@ class _SilverAppBarWithTabBarState extends State<SilverAppBarWithTabBarScreen>
           _buildCard("Sekolah", "SMKN 4 Bandung"),
           _buildCard("Kelas", "Kelas 10"),
           FlatButton.icon(
-              onPressed: () => { BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut()) },
+              onPressed: () => {
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .add(LoggedOut())
+                  },
               icon: Icon(
                 Icons.exit_to_app,
                 color: Colors.red,
@@ -163,45 +136,5 @@ class _SilverAppBarWithTabBarState extends State<SilverAppBarWithTabBarScreen>
         trailing: copyAble ? Icon(Icons.content_copy) : null,
       ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Profil",
-          style: appBarTitleTheme,
-        ),
-      ),
-      body: BlocProvider<AuthenticationBloc>(
-        create: (context) => sl<AuthenticationBloc>(),
-        child: _createProfile(context),
-      ) 
-    );
-  }
-}
-
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverAppBarDelegate(this._tabBar);
-
-  final TabBar _tabBar;
-
-  @override
-  double get minExtent => _tabBar.preferredSize.height;
-  @override
-  double get maxExtent => _tabBar.preferredSize.height;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new Container(
-      child: _tabBar,
-    );
-  }
-
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return false;
   }
 }

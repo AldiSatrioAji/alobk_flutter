@@ -1,0 +1,3 @@
+enum RoleType {
+  SISWA, GURU
+}

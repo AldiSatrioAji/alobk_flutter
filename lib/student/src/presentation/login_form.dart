@@ -1,8 +1,6 @@
+import 'package:alobk_app/bloc/bloc.dart';
 import 'package:alobk_app/core/dimens.dart';
 import 'package:alobk_app/core/margin.dart';
-import 'package:alobk_app/src/bloc/login_bloc.dart';
-import 'package:alobk_app/src/bloc/login_event.dart';
-import 'package:alobk_app/src/bloc/login_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

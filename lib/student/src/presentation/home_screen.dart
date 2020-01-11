@@ -1,3 +1,5 @@
+import 'package:alobk_app/bloc/authentication_bloc.dart';
+import 'package:alobk_app/bloc/authentication_event.dart';
 import 'package:alobk_app/core/dimens.dart';
 import 'package:alobk_app/core/hero_tag.dart';
 import 'package:alobk_app/core/margin.dart';
@@ -5,8 +7,6 @@ import 'package:alobk_app/core/navigations.dart';
 import 'package:alobk_app/core/routes.dart';
 import 'package:alobk_app/core/widget.dart';
 import 'package:alobk_app/injection.dart';
-import 'package:alobk_app/src/bloc/authentication_bloc.dart';
-import 'package:alobk_app/src/bloc/authentication_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
