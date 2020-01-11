@@ -1,5 +1,3 @@
-import 'package:alobk_app/bloc/authentication_bloc.dart';
-import 'package:alobk_app/bloc/authentication_event.dart';
 import 'package:alobk_app/core/dimens.dart';
 import 'package:alobk_app/core/hero_tag.dart';
 import 'package:alobk_app/core/margin.dart';
@@ -7,6 +5,8 @@ import 'package:alobk_app/core/navigations.dart';
 import 'package:alobk_app/core/routes.dart';
 import 'package:alobk_app/core/widget.dart';
 import 'package:alobk_app/injection.dart';
+import 'package:alobk_app/src/bloc/authentication_bloc.dart';
+import 'package:alobk_app/src/bloc/authentication_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,7 +52,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buildBody(context);
+    return BlocProvider<AuthenticationBloc>(
+        create: (context) => sl<AuthenticationBloc>(),
+        child: _buildBody(context));
   }
 
   Widget featureColumn(
@@ -86,17 +88,11 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
+    void doLogout() {
+      BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            onPressed: () => { 
-              BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut())
-            },
-            icon: Icon(Icons.exit_to_app),
-          )
-        ],
-      ),
       body: ListView(
         children: <Widget>[
           _buildGreetingBlock(context),

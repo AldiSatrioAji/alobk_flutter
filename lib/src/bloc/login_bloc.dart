@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:alobk_app/core/role.dart';
-import 'package:alobk_app/domain/repository/login_repository.dart';
-import 'package:alobk_app/ignore/current_role.dart';
+import 'package:alobk_app/src/domain/repository/login_repository.dart';
 import 'package:bloc/bloc.dart';
 import './bloc.dart';
 
@@ -24,13 +22,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield LoginLoadingState();
       try {
         final isPassed = await loginRepository.authenticate(event.username, event.password);
-        isPassed ? authenticationBloc.add(LoggedIn(CurrentRole.currentRole)) : null;
+        isPassed ? authenticationBloc.add(LoggedIn()) : null;
         yield LoginInitialState();
-      } catch (e) {
-        print("Error ${e.message}");
+      } on HttpException {
         yield LoginErrorState();
       }
-      print("State is $state");
     }
   }
 }

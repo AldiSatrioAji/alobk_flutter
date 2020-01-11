@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:alobk_app/data/model/login_request.dart';
+import 'package:alobk_app/src/data/model/login_request.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 

@@ -1,6 +1,7 @@
 import 'package:alobk_app/core/routes.dart';
 import 'package:alobk_app/injection.dart';
 import 'package:alobk_app/main_screen.dart';
+import 'package:alobk_app/splash_screen.dart';
 import 'package:alobk_app/student/src/presentation/bacaan_screen.dart';
 import 'package:alobk_app/student/src/presentation/daring_screen.dart';
 import 'package:alobk_app/student/src/presentation/konselor_screen.dart';
@@ -8,6 +9,7 @@ import 'package:alobk_app/student/src/presentation/konselor_screen/detail_konsel
 import 'package:alobk_app/student/src/presentation/login_screen.dart';
 import 'package:alobk_app/student/src/presentation/pengaturan_screen.dart';
 import 'package:alobk_app/student/src/presentation/profile_screen.dart';
+import 'package:alobk_app/student/src/presentation/student_screen.dart';
 import 'package:alobk_app/student/src/presentation/tatap_muka_screen.dart';
 import 'package:alobk_app/student/src/presentation/tulis_diari_screen.dart';
 import 'package:flutter/material.dart';
@@ -17,31 +19,38 @@ import 'package:http/http.dart' as http;
 
 import 'bloc/authentication_bloc.dart';
 import 'bloc/authentication_event.dart';
+import 'bloc/authentication_state.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
   void onEvent(Bloc bloc, Object event) {
     super.onEvent(bloc, event);
-    print(event);
+    print("Flutter_bloc event $event");
   }
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    print(transition);
+    print("Flutter_bloc transition $transition");
   }
 
   @override
   void onError(Bloc bloc, Object error, StackTrace stacktrace) {
     super.onError(bloc, error, stacktrace);
-    print(error);
+    print("Flutter_bloc error $error");
   }
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
-  runApp(App());
+  BlocSupervisor.delegate = SimpleBlocDelegate();
+  runApp(
+    BlocProvider<AuthenticationBloc>(
+      create: (context) => sl<AuthenticationBloc>()..add(AppStarted()),
+      child: App(),
+    )
+  );
 }
 
 class App extends StatelessWidget {
@@ -58,9 +67,19 @@ class App extends StatelessWidget {
         accentColor: Colors.deepOrange,
         primarySwatch: Colors.blue,
       ),
-      home: BlocProvider<AuthenticationBloc>(
-        create: (context) => sl<AuthenticationBloc>()..add(AppStarted()),
-        child: MainScreen(),
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, state) {
+          print("State is $state");
+          if(state is AuthenticationInitialState) {
+            return SplashScreen();
+          }
+          if(state is AuthenticationAuthState) {
+            return StudentScreen();
+          }
+          if(state is AuthenticationUnauthState) {
+            return LoginScreen();
+          }
+        },
       ),
       routes: <String, WidgetBuilder> {
         Routes.login: (BuildContext context) => LoginScreen(),
