@@ -1,3 +1,6 @@
+import 'package:alobk_app/bloc/authentication_bloc.dart';
+import 'package:alobk_app/bloc/authentication_event.dart';
+import 'package:alobk_app/components/improve_security.dart';
 import 'package:alobk_app/core/dimens.dart';
 import 'package:alobk_app/core/hero_tag.dart';
 import 'package:alobk_app/core/margin.dart';
@@ -5,8 +8,6 @@ import 'package:alobk_app/core/navigations.dart';
 import 'package:alobk_app/core/routes.dart';
 import 'package:alobk_app/core/widget.dart';
 import 'package:alobk_app/injection.dart';
-import 'package:alobk_app/src/bloc/authentication_bloc.dart';
-import 'package:alobk_app/src/bloc/authentication_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,9 +53,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthenticationBloc>(
-        create: (context) => sl<AuthenticationBloc>(),
-        child: _buildBody(context));
+    return _buildBody(context);
   }
 
   Widget featureColumn(
@@ -62,18 +61,15 @@ class HomeScreen extends StatelessWidget {
     return InkWell(
       onTap: () => navigateTo(context, routes),
       child: Container(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          // CircleAvatar(
-          //   backgroundImage:
-          //       NetworkImage("https://www.w3schools.com/w3images/team2.jpg"),
-          // ),
-          _buildIcon(icon),
-          MarginVertical(margin: Dimens.marginSmall),
-          Text(title)
-        ],
-      )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _buildIcon(icon),
+            MarginVertical(margin: Dimens.marginSmall),
+            Text(title)
+          ],
+        ),
+      ),
     );
   }
 
@@ -88,10 +84,6 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
-    void doLogout() {
-      BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
-    }
-
     return Scaffold(
       body: ListView(
         children: <Widget>[
@@ -208,17 +200,15 @@ class HomeScreen extends StatelessWidget {
             shrinkWrap: true,
             // children: listFeature.asMap().entries.map(())
             children: <Widget>[
-              featureColumn("Konselor", Routes.konselor,
+              featureColumn("Konseling", Routes.konselor,
                   FontAwesomeIcons.chalkboardTeacher, context),
-              featureColumn("Tatap Muka", Routes.tatapMuka,
-                  FontAwesomeIcons.calendar, context),
-              featureColumn("Daring", Routes.daring,
-                  FontAwesomeIcons.rocketchat, context),
-              featureColumn("Tulis Diari", Routes.tulisDiari,
+              featureColumn("Diari Siswa", Routes.tatapMuka,
+                  FontAwesomeIcons.solidStickyNote, context),
+              featureColumn("Tambah Artikel", Routes.daring,
                   FontAwesomeIcons.pencilAlt, context),
-              featureColumn("Bacaan", Routes.bacaan,
-                  FontAwesomeIcons.bookReader, context),
-              featureColumn("Pengaturan", Routes.pengaturan,
+              featureColumn("Riwayat", Routes.tulisDiari,
+                  FontAwesomeIcons.history, context),
+              featureColumn("Pengaturan", Routes.bacaan,
                   FontAwesomeIcons.cog, context),
             ],
           )
@@ -228,29 +218,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildImproveSecurity() {
-    return InkWell(
-      onTap: () => {},
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: Dimens.homePaddingVertical,
-          horizontal: Dimens.homePaddingHorizontal,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text("Tingkatkan keamanan", style: subtitle),
-            // MarginVertical(margin: Dimens.marginNormal),
-            ListTile(
-                leading: Icon(Icons.security),
-                title: Text("Ubah kata sandi sekarang"),
-                isThreeLine: true,
-                subtitle:
-                    Text("Kata sandimu saat ini menggunakan sandi default"),
-                trailing: Icon(Icons.arrow_right)),
-          ],
-        ),
-      ),
-    );
+    return ImproveSecurity();
   }
 
   Widget noAnnouncement() {

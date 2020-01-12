@@ -23,8 +23,7 @@ class _ProfileBodyState extends State<ProfileBody> {
         actions: <Widget>[
           IconButton(
             onPressed: () => {
-              BlocProvider.of<AuthenticationBloc>(context)
-                        .add(LoggedOut())
+              BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut())
             },
             icon: Icon(Icons.exit_to_app),
             color: Colors.red,

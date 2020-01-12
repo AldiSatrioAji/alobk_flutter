@@ -1,12 +1,10 @@
+import 'package:alobk_app/bloc/authentication_bloc.dart';
+import 'package:alobk_app/bloc/authentication_event.dart';
 import 'package:alobk_app/core/widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PengaturanScreen extends StatefulWidget {
-  @override
-  _PengaturanScreenState createState() => _PengaturanScreenState();
-}
-
-class _PengaturanScreenState extends State<PengaturanScreen> {
+class PengaturanScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,8 +14,12 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
             style: appBarTitleTheme,
           ),
         ),
-        body: ListView(
-          children: <Widget>[],
+        body: Container(
+          child: FlatButton(
+            child: Text("Logout"),
+            onPressed: () =>
+                {BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut())},
+          ),
         ));
   }
 }

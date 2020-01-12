@@ -27,10 +27,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         isPassed ? authenticationBloc.add(LoggedIn(CurrentRole.currentRole)) : null;
         yield LoginInitialState();
       } catch (e) {
-        print("Error ${e.message}");
         yield LoginErrorState();
       }
-      print("State is $state");
     }
   }
 }

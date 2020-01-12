@@ -18,7 +18,6 @@ class AuthenticationBloc
   Stream<AuthenticationState> mapEventToState(
     AuthenticationEvent event,
   ) async* {
-    print("Event is $event");
     if (event is LoggedIn) {
       yield AuthenticationAuthState(event.roleType);
     }

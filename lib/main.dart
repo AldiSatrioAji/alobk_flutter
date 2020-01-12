@@ -1,6 +1,5 @@
 import 'package:alobk_app/core/routes.dart';
 import 'package:alobk_app/injection.dart';
-import 'package:alobk_app/main_screen.dart';
 import 'package:alobk_app/splash_screen.dart';
 import 'package:alobk_app/student/src/presentation/bacaan_screen.dart';
 import 'package:alobk_app/student/src/presentation/daring_screen.dart';
@@ -12,6 +11,7 @@ import 'package:alobk_app/student/src/presentation/profile_screen.dart';
 import 'package:alobk_app/student/src/presentation/student_screen.dart';
 import 'package:alobk_app/student/src/presentation/tatap_muka_screen.dart';
 import 'package:alobk_app/student/src/presentation/tulis_diari_screen.dart';
+import 'package:alobk_app/teacher/src/presentation/teacher_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +20,7 @@ import 'package:http/http.dart' as http;
 import 'bloc/authentication_bloc.dart';
 import 'bloc/authentication_event.dart';
 import 'bloc/authentication_state.dart';
+import 'core/role.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -69,12 +70,11 @@ class App extends StatelessWidget {
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          print("State is $state");
           if(state is AuthenticationInitialState) {
             return SplashScreen();
           }
           if(state is AuthenticationAuthState) {
-            return StudentScreen();
+            return state.roleType == RoleType.SISWA ? StudentScreen() : TeacherScreen();
           }
           if(state is AuthenticationUnauthState) {
             return LoginScreen();

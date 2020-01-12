@@ -1,5 +1,6 @@
 import 'package:alobk_app/bloc/authentication_bloc.dart';
 import 'package:alobk_app/bloc/authentication_event.dart';
+import 'package:alobk_app/components/improve_security.dart';
 import 'package:alobk_app/core/dimens.dart';
 import 'package:alobk_app/core/hero_tag.dart';
 import 'package:alobk_app/core/margin.dart';
@@ -60,18 +61,15 @@ class HomeScreen extends StatelessWidget {
     return InkWell(
       onTap: () => navigateTo(context, routes),
       child: Container(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          // CircleAvatar(
-          //   backgroundImage:
-          //       NetworkImage("https://www.w3schools.com/w3images/team2.jpg"),
-          // ),
-          _buildIcon(icon),
-          MarginVertical(margin: Dimens.marginSmall),
-          Text(title)
-        ],
-      )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _buildIcon(icon),
+            MarginVertical(margin: Dimens.marginSmall),
+            Text(title)
+          ],
+        ),
+      ),
     );
   }
 
@@ -87,16 +85,6 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            onPressed: () => { 
-              BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut())
-            },
-            icon: Icon(Icons.exit_to_app),
-          )
-        ],
-      ),
       body: ListView(
         children: <Widget>[
           _buildGreetingBlock(context),
@@ -232,29 +220,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildImproveSecurity() {
-    return InkWell(
-      onTap: () => {},
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: Dimens.homePaddingVertical,
-          horizontal: Dimens.homePaddingHorizontal,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text("Tingkatkan keamanan", style: subtitle),
-            // MarginVertical(margin: Dimens.marginNormal),
-            ListTile(
-                leading: Icon(Icons.security),
-                title: Text("Ubah kata sandi sekarang"),
-                isThreeLine: true,
-                subtitle:
-                    Text("Kata sandimu saat ini menggunakan sandi default"),
-                trailing: Icon(Icons.arrow_right)),
-          ],
-        ),
-      ),
-    );
+    return ImproveSecurity();
   }
 
   Widget noAnnouncement() {

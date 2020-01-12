@@ -9,7 +9,7 @@ class LogoutBloc extends Bloc<LogoutEvent, LogoutState> {
   final LoginRepository loginRepository;
   final AuthenticationBloc authenticationBloc;
 
-  LogoutBloc({@required this.loginRepository, @required this.authenticationBloc});
+  LogoutBloc({this.loginRepository, this.authenticationBloc});
 
   @override
   LogoutState get initialState => LogoutInitialState();
@@ -20,10 +20,10 @@ class LogoutBloc extends Bloc<LogoutEvent, LogoutState> {
   ) async* {
     if(event is LogoutButtonPressed) {
       yield LogoutLoadingState();
-      print("Logouting123");
-      final isClearSessionSuccess = await loginRepository.clearSession();
-      print("Logouting123 Clear $isClearSessionSuccess");
-      isClearSessionSuccess ? authenticationBloc.add(LoggedOut()) : LogoutInitialState();
+      authenticationBloc.add(LoggedOut());
+      yield LogoutInitialState();
+      // final isClearSessionSuccess = await loginRepository.clearSession();
+      // isClearSessionSuccess ? authenticationBloc.add(LoggedOut()) : LogoutInitialState();
     }
   }
 }
