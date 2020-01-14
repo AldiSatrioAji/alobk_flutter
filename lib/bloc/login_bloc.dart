@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:alobk_app/core/role.dart';
 import 'package:alobk_app/domain/repository/login_repository.dart';
-import 'package:alobk_app/ignore/current_role.dart';
+import 'package:alobk_app/ignore/static_data.dart';
 import 'package:bloc/bloc.dart';
 import './bloc.dart';
 
@@ -24,7 +24,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield LoginLoadingState();
       try {
         final isPassed = await loginRepository.authenticate(event.username, event.password);
-        isPassed ? authenticationBloc.add(LoggedIn(CurrentRole.currentRole)) : null;
+        isPassed ? authenticationBloc.add(LoggedIn(StaticData.currentRole)) : null;
         yield LoginInitialState();
       } catch (e) {
         yield LoginErrorState();

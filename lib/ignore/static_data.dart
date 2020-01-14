@@ -1,5 +1,5 @@
 import 'package:alobk_app/core/role.dart';
 
-class CurrentRole {
+class StaticData {
   static const RoleType currentRole = RoleType.SISWA;
 }

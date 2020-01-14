@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:alobk_app/core/role.dart';
 import 'package:alobk_app/domain/repository/login_repository.dart';
-import 'package:alobk_app/ignore/current_role.dart';
+import 'package:alobk_app/ignore/static_data.dart';
 import 'package:bloc/bloc.dart';
 import './bloc.dart';
 
@@ -27,7 +27,7 @@ class AuthenticationBloc
     if (event is AppStarted) {
       final hasSession = await loginRepository.hasSession();
       if (hasSession) {
-        yield AuthenticationAuthState(CurrentRole.currentRole);
+        yield AuthenticationAuthState(StaticData.currentRole);
       } else {
         yield AuthenticationUnauthState();
       }

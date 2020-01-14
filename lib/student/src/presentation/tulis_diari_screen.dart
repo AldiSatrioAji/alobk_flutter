@@ -1,5 +1,6 @@
 import 'package:alobk_app/core/dimens.dart';
 import 'package:alobk_app/core/margin.dart';
+import 'package:alobk_app/core/widget.dart';
 import 'package:flutter/material.dart';
 
 class TulisDiariScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class _TulisDiariScreenState extends State<TulisDiariScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profil TulisDiari"),
+        title: Text("Tulis Diari", style: appBarTitleTheme,),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.done),
@@ -23,22 +24,44 @@ class _TulisDiariScreenState extends State<TulisDiariScreen> {
       body: Padding(
         padding: const EdgeInsets.all(Dimens.marginNormal),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
               children: <Widget>[
                 Text("8 Januari 21:45", style: TextStyle(color: Colors.grey)),
                 VerticalDivider(),
-                Text("20 Karakter", style: TextStyle(color: Colors.grey))
+                Text("0 Karakter", style: TextStyle(color: Colors.grey))
               ],
             ),
             MarginVertical(
-              margin: Dimens.marginSmall,
+              margin: Dimens.marginNormal,
             ),
+            Text("Kategori", style: TextStyle(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.bold)),
             _buildChoiceChip(),
+            MarginVertical(
+              margin: Dimens.marginNormal,
+            ),
+            Text("Judul", style: TextStyle(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.bold)),
             TextField(
               autofocus: true,
               decoration: InputDecoration(
                 border: InputBorder.none,
+                hintText: "Tuliskan judul cerita disini",
+                hintStyle: TextStyle(color: Colors.grey)
+              ),
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+            ),
+            MarginVertical(
+              margin: Dimens.marginNormal,
+            ),
+            Text("Cerita", style: TextStyle(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.bold)),
+            TextField(
+              autofocus: true,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: "Tuliskan ceritamu...",
+                hintStyle: TextStyle(color: Colors.grey)
               ),
               keyboardType: TextInputType.multiline,
               maxLines: null,
